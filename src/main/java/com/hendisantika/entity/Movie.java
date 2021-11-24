@@ -1,13 +1,11 @@
 package com.hendisantika.entity;
 
-import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.Set;
+import javax.persistence.ManyToOne;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,17 +14,16 @@ import java.util.Set;
  * Email: hendisantika@gmail.com
  * Telegram : @hendisantika34
  * Date: 24/11/21
- * Time: 19.31
+ * Time: 19.30
  */
 @Entity
-@Data
-public class Director extends RepresentationModel<Director> {
+public class Movie extends RepresentationModel<Movie> {
     @Id
     @GeneratedValue
     private Long id;
-    private String firstname;
-    private String lastname;
+    private String title;
     private int year;
-    @OneToMany(mappedBy = "director")
-    private Set<Movie> movies;
+    private Rating rating;
+    @ManyToOne
+    private Director director;
 }
