@@ -2,6 +2,7 @@ package com.hendisantika.service;
 
 import com.hendisantika.assembler.CarAssembler;
 import com.hendisantika.assembler.UserAssembler;
+import com.hendisantika.dto.CarDTO;
 import com.hendisantika.dto.UserDTO;
 import com.hendisantika.entity.User;
 import com.hendisantika.repository.UserRepository;
@@ -63,6 +64,15 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByCode(code).orElse(null);
         if (user != null) {
             return userAssembler.toModel(user);
+        }
+        return null;
+    }
+
+    @Override
+    public CollectionModel<CarDTO> findUserCars(String code) {
+        User user = userRepository.findByCode(code).orElse(null);
+        if (user != null && (!CollectionUtils.isEmpty(user.getCars()))) {
+            return carAssembler.toCollectionModel(user.getCars());
         }
         return null;
     }
