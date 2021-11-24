@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -75,5 +76,12 @@ public class UserServiceImpl implements UserService {
             return carAssembler.toCollectionModel(user.getCars());
         }
         return null;
+    }
+
+    @Transactional
+    @Override
+    public UserDTO insert(User user) {
+        user.getCars().forEach(car -> car.setUser(user));
+        return userAssembler.toModel(userRepository.save(user));
     }
 }
