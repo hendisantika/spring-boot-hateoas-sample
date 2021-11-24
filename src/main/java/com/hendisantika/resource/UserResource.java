@@ -1,5 +1,6 @@
 package com.hendisantika.resource;
 
+import com.hendisantika.dto.CarDTO;
 import com.hendisantika.dto.UserDTO;
 import com.hendisantika.service.UserService;
 import org.springframework.hateoas.CollectionModel;
@@ -49,4 +50,13 @@ public class UserResource {
 
         return ResponseEntity.ok(userDTO);
     }
+
+    @GetMapping("/{code}/cars")
+    public ResponseEntity findUserCars(@PathVariable String code) {
+        CollectionModel<CarDTO> cars = userService.findUserCars(code);
+        if (cars != null) return ResponseEntity.ok(cars);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }
