@@ -2,11 +2,15 @@ package com.hendisantika.resource;
 
 import com.hendisantika.dto.CarDTO;
 import com.hendisantika.dto.UserDTO;
+import com.hendisantika.entity.User;
 import com.hendisantika.service.UserService;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,4 +63,11 @@ public class UserResource {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping
+    public ResponseEntity insertUser(@RequestBody User user) {
+        UserDTO userDTO = userService.insert(user);
+        return ResponseEntity //
+                .created(userDTO.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
+                .body(userDTO);
+    }
 }

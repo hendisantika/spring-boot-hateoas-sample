@@ -1,7 +1,7 @@
-package com.hendisantika.config;
+package com.hendisantika.assembler;
 
-import com.hendisantika.controller.DirectorController;
 import com.hendisantika.entity.Director;
+import com.hendisantika.resource.DirectorResource;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.SimpleRepresentationModelAssembler;
@@ -24,14 +24,14 @@ public class DirectorAssembler implements SimpleRepresentationModelAssembler<Dir
     @Override
     public void addLinks(EntityModel<Director> resource) {
         Long directorId = resource.getContent().getId();
-        resource.add(linkTo(methodOn(DirectorController.class).getDirectorById(directorId)).withSelfRel());
-        resource.add(linkTo(methodOn(DirectorController.class).getDirectorMovies(directorId)).withRel("directorMovies"
+        resource.add(linkTo(methodOn(DirectorResource.class).getDirectorById(directorId)).withSelfRel());
+        resource.add(linkTo(methodOn(DirectorResource.class).getDirectorMovies(directorId)).withRel("directorMovies"
         ));
     }
 
     @Override
     public void addLinks(CollectionModel<EntityModel<Director>> resources) {
-        resources.add(linkTo(methodOn(DirectorController.class).getAllDirectors()).withSelfRel());
+        resources.add(linkTo(methodOn(DirectorResource.class).getAllDirectors()).withSelfRel());
 
     }
 }

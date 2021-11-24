@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,5 +24,13 @@ public class DirectorService {
 
     public List<Director> getAllDirectors() {
         return directorRepository.findAll();
+    }
+
+    public Optional<Director> getDirectorById(Long id) {
+        return directorRepository.findById(id);
+    }
+
+    public Optional<Director> getDirectorMovies(Long id) {
+        return directorRepository.findById(id);
     }
 }
