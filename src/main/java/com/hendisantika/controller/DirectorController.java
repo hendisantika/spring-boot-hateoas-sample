@@ -1,6 +1,8 @@
 package com.hendisantika.controller;
 
 import com.hendisantika.entity.Director;
+import com.hendisantika.service.DirectorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,7 +24,10 @@ import java.util.List;
  * Time: 19.33
  */
 @RestController
-public class MovieController {
+public class DirectorController {
+    @Autowired
+    private DirectorService directorService;
+
     @GetMapping("/directors")
     public ResponseEntity<CollectionModel<Director>> getAllDirectors() {
         List<Director> directors = directorService.getAllDirectors();
