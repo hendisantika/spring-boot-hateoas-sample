@@ -1,6 +1,7 @@
 package com.hendisantika.resource;
 
 import com.hendisantika.dto.CarDTO;
+import com.hendisantika.dto.UserDTO;
 import com.hendisantika.service.CarService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,13 @@ public class CarResource {
     public ResponseEntity findByPlate(@PathVariable String plate) {
         CarDTO car = carService.findByPlate(plate);
         if (car != null) return ResponseEntity.ok(car);
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{plate}/user")
+    public ResponseEntity findCarUser(@PathVariable String plate) {
+        UserDTO user = carService.findCarUser(plate);
+        if (user != null) return ResponseEntity.ok(user);
         return ResponseEntity.notFound().build();
     }
 }
