@@ -57,4 +57,13 @@ public class UserServiceImpl implements UserService {
         if (!CollectionUtils.isEmpty(users.getContent())) return pagedResourcesAssembler.toModel(users, userAssembler);
         return null;
     }
+
+    @Override
+    public UserDTO findByCode(String code) {
+        User user = userRepository.findByCode(code).orElse(null);
+        if (user != null) {
+            return userAssembler.toModel(user);
+        }
+        return null;
+    }
 }
