@@ -3,6 +3,7 @@ package com.hendisantika.service;
 import com.hendisantika.assembler.CarAssembler;
 import com.hendisantika.assembler.UserAssembler;
 import com.hendisantika.dto.CarDTO;
+import com.hendisantika.dto.UserDTO;
 import com.hendisantika.entity.Car;
 import com.hendisantika.repository.CarRepository;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -39,6 +40,15 @@ public class CarServiceImpl implements CarService {
         Car car = carRepository.findByPlate(plate).orElse(null);
         if (car != null) {
             return carAssembler.toModel(car);
+        }
+        return null;
+    }
+
+    @Override
+    public UserDTO findCarUser(String plate) {
+        Car car = carRepository.findByPlate(plate).orElse(null);
+        if (car != null && car.getUser() != null) {
+            return userAssembler.toModel(car.getUser());
         }
         return null;
     }
