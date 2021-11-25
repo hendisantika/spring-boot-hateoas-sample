@@ -5,6 +5,7 @@ import com.hendisantika.assembler.AlbumModelAssembler;
 import com.hendisantika.entity.ActorEntity;
 import com.hendisantika.entity.AlbumEntity;
 import com.hendisantika.model.ActorModel;
+import com.hendisantika.model.AlbumModel;
 import com.hendisantika.repository.ActorRepository;
 import com.hendisantika.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,4 +63,12 @@ public class WebController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/api/albums")
+    public ResponseEntity<CollectionModel<AlbumModel>> getAllAlbums() {
+        List<AlbumEntity> albumEntities = (List<AlbumEntity>) albumRepository.findAll();
+
+        return new ResponseEntity<>(
+                albumModelAssembler.toCollectionModel(albumEntities),
+                HttpStatus.OK);
+    }
 }
