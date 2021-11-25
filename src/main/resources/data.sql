@@ -9,7 +9,7 @@ VALUES (4, 'Gennaro', 'Albergo', 'cf4', 'via Roma');
 INSERT INTO user (id, name, surname, code, address)
 VALUES (5, 'Mario', 'Rossi', 'cf5', 'via Piave');
 
-INSERT INTO car (plate, name, user_id)
+INSERT INTO CAR (plate, name, user_id)
 VALUES ('BF8013RR', 'Toyota', 1);
 INSERT INTO car (plate, name, user_id)
 VALUES ('AF8013RR', 'Fiat', 1);

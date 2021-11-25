@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -23,6 +24,7 @@ import java.io.Serializable;
  * Time: 19.47
  */
 @Entity
+@Table(name = "car")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
