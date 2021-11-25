@@ -3,6 +3,7 @@ package com.hendisantika.assembler;
 import com.hendisantika.entity.ActorEntity;
 import com.hendisantika.model.ActorModel;
 import com.hendisantika.resource.WebController;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
@@ -40,5 +41,14 @@ public class ActorModelAssembler extends RepresentationModelAssemblerSupport<Act
         actorModel.setBirthDate(entity.getBirthDate());
         actorModel.setAlbums(toAlbumModel(entity.getAlbums()));
         return actorModel;
+    }
+
+    @Override
+    public CollectionModel<ActorModel> toCollectionModel(Iterable<? extends ActorEntity> entities)
+    {
+        CollectionModel<ActorModel> actorModels = super.toCollectionModel(entities);
+        actorModels.add(linkTo(methodOn(WebController.class).getAllActors()).withSelfRel());
+
+        return actorModels;
     }
 }
