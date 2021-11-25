@@ -10,6 +10,7 @@ Let's see how to implement a level 3 Restful Web Service of the Richardson Matur
 2. Navigate to the folder: `cd spring-boot-hateoas-sample`
 3. Run the application: `mvn clean spring-boot:run`
 4. Open your favorite browser: http://localhost:8080/users?page=0&size=2&sort=code
+   5Open your favorite browser: http://localhost:8080/api/albums-list?page=1&size=2&sort=title,desc
 
 Article Link:
 
