@@ -8,6 +8,7 @@ import org.springframework.data.web.HateoasSortHandlerMethodArgumentResolver;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.data.web.PagedResourcesAssemblerArgumentResolver;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -51,5 +52,10 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Bean
     public PagedResourcesAssemblerArgumentResolver pagedResourcesAssemblerArgumentResolver() {
         return new PagedResourcesAssemblerArgumentResolver(pageableResolver(), null);
+    }
+
+    @Bean
+    ForwardedHeaderFilter forwardedHeaderFilter() {
+        return new ForwardedHeaderFilter();
     }
 }
