@@ -1,6 +1,7 @@
 package com.hendisantika.resource;
 
 import com.hendisantika.assembler.ActorModelAssembler;
+import com.hendisantika.assembler.AlbumModelAssembler;
 import com.hendisantika.entity.AlbumEntity;
 import com.hendisantika.repository.ActorRepository;
 import com.hendisantika.repository.AlbumRepository;
