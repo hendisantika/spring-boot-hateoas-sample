@@ -1,5 +1,7 @@
 package com.hendisantika.service;
 
+import com.hendisantika.assembler.DirectorAssembler;
+import com.hendisantika.dto.DirectorDTO;
 import com.hendisantika.entity.Director;
 import com.hendisantika.repository.DirectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class DirectorService {
     @Autowired
     private DirectorRepository directorRepository;
 
+    @Autowired
+    private DirectorAssembler directorAssembler;
+
     public List<Director> getAllDirectors() {
         return directorRepository.findAll();
     }
@@ -32,5 +37,10 @@ public class DirectorService {
 
     public Optional<Director> getDirectorMovies(Long id) {
         return directorRepository.findById(id);
+    }
+
+    public DirectorDTO insert(Director director) {
+        director.getMovies().forEach(movie -> movie.setDirector(director));
+        return directorAssembler.toModel(directorRepository.save(director));
     }
 }

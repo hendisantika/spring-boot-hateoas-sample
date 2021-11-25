@@ -1,6 +1,8 @@
 package com.hendisantika.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.Entity;
@@ -20,6 +22,8 @@ import java.util.Set;
  */
 @Entity
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
 public class Director extends RepresentationModel<Director> {
     @Id
     @GeneratedValue

@@ -1,13 +1,17 @@
 package com.hendisantika.resource;
 
+import com.hendisantika.dto.DirectorDTO;
 import com.hendisantika.entity.Director;
 import com.hendisantika.service.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,5 +59,13 @@ public class DirectorResource {
         Director director = directorService.getDirectorMovies(id).orElseThrow(RuntimeException::new);
         if (director != null) return ResponseEntity.ok(director);
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    public ResponseEntity insertNewDirector(@RequestBody Director director) {
+        DirectorDTO directorDTO = directorService.insert(director);
+        return ResponseEntity //
+                .created(directorDTO.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
+                .body(directorDTO);
     }
 }

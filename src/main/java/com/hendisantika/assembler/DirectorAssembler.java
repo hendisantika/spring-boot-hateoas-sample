@@ -1,10 +1,11 @@
 package com.hendisantika.assembler;
 
+import com.hendisantika.dto.DirectorDTO;
 import com.hendisantika.entity.Director;
 import com.hendisantika.resource.DirectorResource;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.SimpleRepresentationModelAssembler;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -20,8 +21,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
  * Time: 19.39
  */
 @Component
-public class DirectorAssembler implements SimpleRepresentationModelAssembler<Director> {
-    @Override
+public class DirectorAssembler implements RepresentationModelAssembler<Director, DirectorDTO> {
     public void addLinks(EntityModel<Director> resource) {
         Long directorId = resource.getContent().getId();
         resource.add(linkTo(methodOn(DirectorResource.class).getDirectorById(directorId)).withSelfRel());
@@ -29,9 +29,16 @@ public class DirectorAssembler implements SimpleRepresentationModelAssembler<Dir
         ));
     }
 
-    @Override
     public void addLinks(CollectionModel<EntityModel<Director>> resources) {
         resources.add(linkTo(methodOn(DirectorResource.class).getAllDirectors()).withSelfRel());
+    }
 
+    @Override
+    public DirectorDTO toModel(Director entity) {
+        DirectorDTO directorDTO = new DirectorDTO(entity.getId(), entity.getFirstname(), entity.getLastname(),
+                entity.getYear(), entity.getMovies());
+        directorDTO.add(linkTo(methodOn(DirectorResource.class).getDirectorById(entity.getId())).withSelfRel());
+        directorDTO.add(linkTo(methodOn(DirectorResource.class).getDirectorMovies(entity.getId())).withSelfRel());
+        return directorDTO;
     }
 }
