@@ -62,7 +62,7 @@ VALUES (1);
 
 CREATE TABLE actor
 (
-    id         INT PRIMARY KEY,
+    id         BIGINT PRIMARY KEY,
     first_name VARCHAR(255) NULL,
     last_name  VARCHAR(255) NULL,
     birth_date VARCHAR(255) NULL
@@ -70,7 +70,7 @@ CREATE TABLE actor
 
 CREATE TABLE album
 (
-    id           INT PRIMARY KEY,
+    id           BIGINT PRIMARY KEY,
     title        VARCHAR(255) NULL,
     description  VARCHAR(255) NULL,
     release_date VARCHAR(255) NULL
@@ -78,6 +78,6 @@ CREATE TABLE album
 
 CREATE TABLE actor_album
 (
-    actor_id INT,
-    album_id INT
+    actor_id BIGINT,
+    album_id BIGINT
 );
