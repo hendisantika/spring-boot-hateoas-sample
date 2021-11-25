@@ -6,6 +6,9 @@ import com.hendisantika.resource.WebController;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-hateoas-sample
@@ -20,5 +23,22 @@ public class ActorModelAssembler extends RepresentationModelAssemblerSupport<Act
 
     public ActorModelAssembler() {
         super(WebController.class, ActorModel.class);
+    }
+
+    @Override
+    public ActorModel toModel(ActorEntity entity)
+    {
+        ActorModel actorModel = instantiateModel(entity);
+
+        actorModel.add(linkTo(methodOn(WebController.class)
+                .getActorById(entity.getId()))
+                .withSelfRel());
+
+        actorModel.setId(entity.getId());
+        actorModel.setFirstName(entity.getFirstName());
+        actorModel.setLastName(entity.getLastName());
+        actorModel.setBirthDate(entity.getBirthDate());
+        actorModel.setAlbums(toAlbumModel(entity.getAlbums()));
+        return actorModel;
     }
 }
