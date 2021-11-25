@@ -1,11 +1,17 @@
 package com.hendisantika.assembler;
 
 import com.hendisantika.entity.ActorEntity;
+import com.hendisantika.entity.AlbumEntity;
 import com.hendisantika.model.ActorModel;
+import com.hendisantika.model.AlbumModel;
 import com.hendisantika.resource.WebController;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -50,5 +56,21 @@ public class ActorModelAssembler extends RepresentationModelAssemblerSupport<Act
         actorModels.add(linkTo(methodOn(WebController.class).getAllActors()).withSelfRel());
 
         return actorModels;
+    }
+
+    private List<AlbumModel> toAlbumModel(List<AlbumEntity> albums) {
+        if (albums.isEmpty())
+            return Collections.emptyList();
+
+        return albums.stream()
+                .map(album -> AlbumModel.builder()
+                        .id(album.getId())
+                        .title(album.getTitle())
+                        .build()
+                        .add(linkTo(
+                                methodOn(WebController.class)
+                                        .getAlbumById(album.getId()))
+                                .withSelfRel()))
+                .collect(Collectors.toList());
     }
 }
