@@ -13,6 +13,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -51,6 +52,14 @@ public class WebController {
         return new ResponseEntity<>(
                 actorModelAssembler.toCollectionModel(actorEntities),
                 HttpStatus.OK);
+    }
+
+    @GetMapping("/api/actors/{id}")
+    public ResponseEntity<ActorModel> getActorById(@PathVariable("id") Long id) {
+        return actorRepository.findById(id)
+                .map(actorModelAssembler::toModel)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }
