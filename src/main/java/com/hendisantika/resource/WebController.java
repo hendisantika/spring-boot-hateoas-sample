@@ -71,4 +71,12 @@ public class WebController {
                 albumModelAssembler.toCollectionModel(albumEntities),
                 HttpStatus.OK);
     }
+
+    @GetMapping("/api/albums/{id}")
+    public ResponseEntity<AlbumModel> getAlbumById(@PathVariable("id") Long id) {
+        return albumRepository.findById(id)
+                .map(albumModelAssembler::toModel)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
